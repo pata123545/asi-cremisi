@@ -8,7 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/asi-cremisi/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/family-finance-page.css">
+    
 </head>
 
 <body>
@@ -270,7 +272,7 @@
             
         </div>
         
-        <a href="#contact" class="tertiary-cta-button">בואו נבנה גם את הסיפור שלכם</a>
+        <a href="#contact-modal" class="hero-cta-button">בואו נבנה גם את הסיפור שלכם</a>
 
     </div>
 </section>
@@ -395,21 +397,37 @@
 </footer>
 
 
-<script>
-    // 1. מאתרים את האלמנטים
-    const burgerBtn = document.getElementById('burger-btn');
-    const mainNav = document.getElementById('main-nav');
 
-    // 2. מוסיפים מאזין לאירוע לחיצה
-    burgerBtn.addEventListener('click', () => {
-        // 3. הכלל הקריטי: מחליפים את הקלאס '.open'
-        // אם הקלאס קיים, הוא מוסר. אם הוא לא קיים, הוא נוסף.
-        mainNav.classList.toggle('open');
+
+<div id="contact-modal" class="modal">
+    
+    <div class="modal-content">
         
-        // אופציונלי: שינוי ה-ARIA (נגישות)
-        const isExpanded = burgerBtn.getAttribute('aria-expanded') === 'true' || false;
-        burgerBtn.setAttribute('aria-expanded', !isExpanded);
-    });
-</script>
+        <span class="close-btn">&times;</span>
+        
+        <h2>בואו נדבר על המטרות הפיננסיות שלכם</h2>
+        <p>מלאו את הפרטים ונחזור אליכם לבדיקת התאמה ללא עלות.</p>
+        
+        <form id="popup-contact-form">
+            <label for="full-name">שם מלא:</label>
+            <input type="text" id="full-name" name="full-name" required>
+
+            <label for="phone">טלפון:</label>
+            <input type="tel" id="phone" name="phone" required>
+
+            <label for="email">דוא"ל:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">מה הנושא שמדאיג אתכם?</label>
+            <textarea id="message" name="message" rows="3"></textarea>
+
+            <button type="submit" class="hero-cta-button">שליחת פרטים</button>
+        </form>
+        
+    </div>
+</div>
+
+
+<script src="assets/js/modal-logic.js"></script> 
 </body>
 </html>
