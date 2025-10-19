@@ -224,3 +224,85 @@ document.addEventListener('DOMContentLoaded', function() {
         }, delayInMilliseconds); // הפעלת הפונקציה לאחר 4 דקות
     }
 });
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+
+    if (button && menu) {
+        button.addEventListener('click', () => {
+            
+            // 🔥 זה התיקון: פשוט הוסף או הסר את הקלאס 'hidden'
+            menu.classList.toggle('hidden'); 
+            
+            const isExpanded = menu.classList.contains('hidden') ? 'false' : 'true';
+            button.setAttribute('aria-expanded', isExpanded);
+        });
+
+        // סגירה בלחיצה על קישור
+        const menuLinks = menu.querySelectorAll('a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                button.setAttribute('aria-expanded', 'false');
+            });
+        });
+    }
+});
+
+    // **********************************************
+    // לוגיקת POP-UP (הצגה לאחר 4 דקות)
+    // **********************************************
+    
+    const popup = document.getElementById('exit-popup');
+    const closeButton = document.getElementById('close-popup');
+    // בדיקה האם הפופ-אפ כבר הוצג בסשן הנוכחי
+    const hasShownPopup = sessionStorage.getItem('hasShownExitPopup'); 
+    
+    if (popup && closeButton) { // ודא שהאלמנטים קיימים
+        
+        // --- 1. פונקציית סגירה ---
+        function closePopup() {
+            popup.classList.add('hidden');
+            sessionStorage.setItem('hasShownExitPopup', 'true'); // מונע הופעה חוזרת
+        }
+
+        // --- 2. טיפול בסגירה ---
+        closeButton.addEventListener('click', closePopup);
+        
+        // סגירה בלחיצה על הרקע הכהה
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                closePopup();
+            }
+        });
+        
+        // סגירה בלחיצה על מקש ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape" && !popup.classList.contains('hidden')) {
+                closePopup();
+            }
+        });
+
+
+        // --- 3. לוגיקת הצגה לאחר 4 דקות (Time Delay) ---
+        const delayInMilliseconds = 4 * 60 * 1000; // 4 דקות = 240,000 מילישניות
+
+        if (!hasShownPopup) {
+            setTimeout(function() {
+                
+                // מציג את הפופ-אפ רק אם הוא מוסתר כרגע
+                if (popup.classList.contains('hidden')) {
+                    // מוודאים שהקוד לא מנסה להציג אותו אם המשתמש כבר שלח את הטופס
+                    popup.classList.remove('hidden'); 
+                }
+                
+            }, delayInMilliseconds); // הפעלת הפונקציה לאחר 4 דקות
+        }
+    }
+
+    // **********************************************
+    // אם יש לך לוגיקה לקרוסלת המלצות - היא תבוא כאן
+    // **********************************************
